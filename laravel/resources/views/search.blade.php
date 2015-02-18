@@ -28,11 +28,8 @@
 
                     <span>
                         <select name="genre_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option data-hidden="true" value="">
-                                Genre
-                            </option>
                             <option value="all">
-                                All
+                                All Genres
                             </option>
                             <?php
                             foreach($genres as $genre){
@@ -41,11 +38,8 @@
                             ?>
                         </select>
                         <select name="rating_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option data-hidden="true" value="">
-                                Rating
-                            </option>
                             <option value="all">
-                                All
+                                All Ratings
                             </option>
                             <?php
                             foreach($ratings as $rating){

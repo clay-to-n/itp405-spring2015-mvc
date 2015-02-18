@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Dvd;
 
 class DvdsController extends Controller {
 
@@ -21,8 +22,8 @@ class DvdsController extends Controller {
 	 */
 	public function search()
 	{
-		$ratings = DB::table('ratings')->get();
-		$genres = DB::table('genres')->get();
+		$ratings = Dvd::getAllRatings();
+		$genres = Dvd::getAllGenres();
 		return view('search', [
 			'genres' => $genres,
 			'ratings' => $ratings
@@ -36,17 +37,11 @@ class DvdsController extends Controller {
 	 */
 	public function results(Request $request)
 	{
-		dd ($request);
-
-		if (!$request->input('song_title')) {
-			return redirect('/songs/search');
-		}
-		$query = new SongQuery();
-		$songs = $query->search($request->input('song_title'));
+		$results = Dvd::search($request->input('title'));
 
 		return view('results', [
-			'song_title' => $request->input('song_title'),
-			'songs' => $songs
+			'title' => $request->input('title'),
+			'results' => $results
 		]);
 	}
 
