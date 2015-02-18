@@ -28,7 +28,7 @@
 
                     <span>
                         <select name="genre_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="all">
+                            <option value="-1">
                                 All Genres
                             </option>
                             <?php
@@ -38,7 +38,7 @@
                             ?>
                         </select>
                         <select name="rating_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="all">
+                            <option value="-1">
                                 All Ratings
                             </option>
                             <?php

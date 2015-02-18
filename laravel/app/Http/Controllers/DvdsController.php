@@ -24,6 +24,7 @@ class DvdsController extends Controller {
 	{
 		$ratings = Dvd::getAllRatings();
 		$genres = Dvd::getAllGenres();
+
 		return view('search', [
 			'genres' => $genres,
 			'ratings' => $ratings
@@ -37,7 +38,11 @@ class DvdsController extends Controller {
 	 */
 	public function results(Request $request)
 	{
-		$results = Dvd::search($request->input('title'));
+		$results = Dvd::search([
+			'title' => $request->input('title'),
+			'genre_id' => $request->input('genre_id'),
+			'rating_id' => $request->input('rating_id')
+		]);
 
 		return view('results', [
 			'title' => $request->input('title'),
