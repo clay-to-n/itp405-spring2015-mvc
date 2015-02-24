@@ -44,6 +44,18 @@ class Dvd {
             ->orderBy('title', 'asc')
             ->get();
     }
+  
+    public static function getById($id)
+    {
+       $query = DB::table('dvds')
+        ->join('ratings', 'ratings.id', '=', 'dvds.rating_id')
+        ->join('genres', 'genres.id', '=', 'dvds.genre_id')
+        ->join('labels', 'labels.id', '=', 'dvds.label_id')
+        ->join('sounds', 'sounds.id', '=', 'dvds.sound_id')
+        ->join('formats', 'formats.id', '=', 'dvds.format_id');
+        
+        return $query->where('dvds.id', 1)->first();
+    }
 
     public static function getAllRatings()
     {

@@ -49,5 +49,20 @@ class DvdsController extends Controller {
 			'results' => $results
 		]);
 	}
+  
+    /**
+	 * Show the reviews of a particular DVD
+	 *
+	 * @return Response
+	 */
+	public function reviews(Request $request, $id)
+	{
+		$results = Dvd::getById($id);
+
+		return view('reviews', [
+			'title' => $id,//$request->input('title'),
+			'result' => $results
+		]);
+	}
 
 }

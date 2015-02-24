@@ -11,7 +11,7 @@
 
     <link href="/css/search.css" rel="stylesheet">
 
-    <title>Song Search</title>
+    <title>DVD Search</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
 
-            <form method="post" class="dvd-search" action="{{ url("dvds") }}">
+            <form method="post" class="dvd-search" action="{{ url('dvds') }}">
                 <div class="input-group dvd-search">
 
                     <input type="hidden"  name="_token" value="{{ csrf_token() }}">

@@ -1,0 +1,14 @@
+.review-title {
+    margin-bottom: 12px;
+    margin-top:12px;
+}
+
+.review-text {
+    resize: none;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+#review-stars span {
+    float: right;   
+}
