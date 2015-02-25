@@ -82,7 +82,7 @@ class DvdsController extends Controller {
 				'rating' => $request->input('rating'),
 				'description' => $request->input('description')
 			]);
-			return redirect('dvds/' . $id)->with('success', 'Review created successfully');
+			return redirect('dvds/' . $id)->with('success', 'Your review has been posted.');
 		}
 		else {
 			return redirect('dvds/' . $id)

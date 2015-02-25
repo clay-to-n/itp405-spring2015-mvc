@@ -12,3 +12,11 @@
 #review-stars span {
     float: right;   
 }
+
+.success-message {
+    font-size: 1.8em;
+}
+
+.error-message {
+    color: red;
+}

@@ -47,24 +47,30 @@
 
                     <input type="hidden"  name="_token" value="{{ csrf_token() }}">
                     <div class="review-title">
-                        <input type="text" class="form-control" name="title" placeholder="Review Title">
+                        <input type="text" class="form-control" name="title" placeholder="Review Title" value="{{ Request::old('title') }}">
                     </div>
                     <div id="review-stars">
                         Rating: 
                         <span>
-                            <input type="number" data-max="10" data-min="1" name="rating" id="some_id" class="rating" />
+                            <input type="number" data-max="10" data-min="1" name="rating" id="some_id" class="rating" value="{{ Request::old('rating') }}" />
                         </span>
                     </div>
-                    <textarea class="form-control review-text" rows="5" name="description" placeholder="What did you think about {{ $dvd->title }} ?"></textarea>
+                    <textarea class="form-control review-text" rows="5" name="description" placeholder="What did you think about {{ $dvd->title }} ?">{{ Request::old('description') }}</textarea>
                     <div class="text-right">
-                    <button class="btn btn-primary" type="submit" style="width:20%">
-                        Submit
-                    </button>
+                        <button class="btn btn-primary" type="submit" style="width:20%">
+                            Submit
+                        </button>
                     </div>
+                    @if (Session::has('success'))
+                        <p class="success-message"> {{ Session::get('success') }} </p>
+                    @endif
+                    @foreach ($errors->all() as $error)
+                        <p class="error-message"> {{ $error }} </p>
+                    @endforeach
                 </div>
             </form>
         </div>
-                
+
         <div class="row">           
             <h3>Reviews</h3>
             <table class="table table-striped">
@@ -81,7 +87,9 @@
 
                 @foreach ($reviews as $review)
                     <tr>
-                      <td><?php
+                      <td class="col-md-2">
+                          <p>
+                          <?php
                             for ($i = 0; $i < 10; $i++) {
                                 if ($i < $review->rating)
                                     echo ('<i class="glyphicon glyphicon-star"></i>');
@@ -89,6 +97,7 @@
                                     echo ('<i class="glyphicon glyphicon-star-empty"></i>');
                             }
                           ?>
+                          </p>
                       </td>
                       <td><strong>{{ $review->title }}</strong><br/>{{ $review->description }}</td>
                     </tr>
