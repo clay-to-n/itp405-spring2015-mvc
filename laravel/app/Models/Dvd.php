@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 class Dvd {
@@ -13,7 +14,8 @@ class Dvd {
             ->join('genres', 'genres.id', '=', 'dvds.genre_id')
             ->join('labels', 'labels.id', '=', 'dvds.label_id')
             ->join('sounds', 'sounds.id', '=', 'dvds.sound_id')
-            ->join('formats', 'formats.id', '=', 'dvds.format_id');
+            ->join('formats', 'formats.id', '=', 'dvds.format_id')
+            ->select('*', 'dvds.id');
 
         // Sorry this is a mess but I could not get conditional queries to work without doing it this way
 
@@ -48,13 +50,15 @@ class Dvd {
     public static function getById($id)
     {
        $query = DB::table('dvds')
-        ->join('ratings', 'ratings.id', '=', 'dvds.rating_id')
-        ->join('genres', 'genres.id', '=', 'dvds.genre_id')
-        ->join('labels', 'labels.id', '=', 'dvds.label_id')
-        ->join('sounds', 'sounds.id', '=', 'dvds.sound_id')
-        ->join('formats', 'formats.id', '=', 'dvds.format_id');
+            ->join('ratings', 'ratings.id', '=', 'dvds.rating_id')
+            ->join('genres', 'genres.id', '=', 'dvds.genre_id')
+            ->join('labels', 'labels.id', '=', 'dvds.label_id')
+            ->join('sounds', 'sounds.id', '=', 'dvds.sound_id')
+            ->join('formats', 'formats.id', '=', 'dvds.format_id')
+            ->select('*', 'dvds.id')
+            ->where('dvds.id', $id);
         
-        return $query->where('dvds.id', 1)->first();
+        return $query->first();
     }
 
     public static function getAllRatings()

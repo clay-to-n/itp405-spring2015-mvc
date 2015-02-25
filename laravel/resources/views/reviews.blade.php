@@ -9,13 +9,13 @@
         <script src="/js/bootstrap-rating-input.min.js"></script>
         <link rel="stylesheet" href="/css/reviews.css">
         
-        <title>Dvd Reviews</title>
+        <title>{{ $dvd->title }} Reviews</title>
     </head>
     <body>
     <div class="container">
         <div class="row">
 
-            <h1>{{ $result->title }}</h1>
+            <h1>{{ $dvd->title }}</h1>
 
             <table class="table">
                 <thead>
@@ -30,18 +30,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                      <td>{{ $result->genre_name }}</td>
-                      <td>{{ $result->rating_name }}</td>
-                      <td>{{ $result->label_name }}</td>
-                      <td>{{ $result->sound_name }}</td>
-                      <td>{{ $result->format_name }}</td>
-                      <td>{{ date("M d, Y", strtotime($result->release_date)) }}</td>
+                      <td>{{ $dvd->genre_name }}</td>
+                      <td>{{ $dvd->rating_name }}</td>
+                      <td>{{ $dvd->label_name }}</td>
+                      <td>{{ $dvd->sound_name }}</td>
+                      <td>{{ $dvd->format_name }}</td>
+                      <td>{{ date("M d, Y", strtotime($dvd->release_date)) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="row">
-            <form method="post" class="dvd-review" action="{{ url('dvds') }}" class="post-review">
+            <form method="post" action="{{ url('dvds/' . $dvd->id) }}">
                 <div class="form-group col-md-6 col-md-offset-3">
                     <h3>Submit a Review</h3>
 
@@ -52,12 +52,12 @@
                     <div id="review-stars">
                         Rating: 
                         <span>
-                            <input type="number" data-max="10" data-min="1" name="your_awesome_parameter" id="some_id" class="rating" />
+                            <input type="number" data-max="10" data-min="1" name="rating" id="some_id" class="rating" />
                         </span>
                     </div>
-                    <textarea class="form-control review-text" rows="5" name="text" placeholder="What did you think about {{ $result->title }} ?"></textarea>
+                    <textarea class="form-control review-text" rows="5" name="description" placeholder="What did you think about {{ $dvd->title }} ?"></textarea>
                     <div class="text-right">
-                    <button class="btn btn-primary" type="submit" name="submit" style="width:20%">
+                    <button class="btn btn-primary" type="submit" style="width:20%">
                         Submit
                     </button>
                     </div>
@@ -70,23 +70,29 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>Genre</th>
-                      <th>Rating</th>
-                      <th>Label</th>
-                      <th>Sound</th>
-                      <th>Format</th>
-                      <th>Release Date</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                @if(count($reviews) == 0)
+                   <tr> <td>No reviews have been posted.</td></tr>
+                @endif
+
+                @foreach ($reviews as $review)
                     <tr>
-                      <td>{{ $result->genre_name }}</td>
-                      <td>{{ $result->rating_name }}</td>
-                      <td>{{ $result->label_name }}</td>
-                      <td>{{ $result->sound_name }}</td>
-                      <td>{{ $result->format_name }}</td>
-                      <td>{{ date("M d, Y", strtotime($result->release_date)) }}</td>
+                      <td><?php
+                            for ($i = 0; $i < 10; $i++) {
+                                if ($i < $review->rating)
+                                    echo ('<i class="glyphicon glyphicon-star"></i>');
+                                else
+                                    echo ('<i class="glyphicon glyphicon-star-empty"></i>');
+                            }
+                          ?>
+                      </td>
+                      <td><strong>{{ $review->title }}</strong><br/>{{ $review->description }}</td>
                     </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

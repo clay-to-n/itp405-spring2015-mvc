@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Dvd;
@@ -57,12 +58,37 @@ class DvdsController extends Controller {
 	 */
 	public function reviews(Request $request, $id)
 	{
-		$results = Dvd::getById($id);
+		$dvd = Dvd::getById($id);
+		$reviews = Review::getByDvdId($id);
 
 		return view('reviews', [
-			'title' => $id,//$request->input('title'),
-			'result' => $results
+			'dvd' => $dvd,
+			'reviews' => $reviews
 		]);
+	}
+
+	/**
+	 * Post a new review of a DVD
+	 */
+	public function postReview(Request $request, $id)
+	{
+		// We don't need to validate the id, there is no way to send a bad id to this function
+		$validation = Review::validate($request->all());
+
+		if ($validation->passes()) {
+			 Review::create([
+				'dvd_id' => $id,
+				'title' => $request->input('title'),
+				'rating' => $request->input('rating'),
+				'description' => $request->input('description')
+			]);
+			return redirect('dvds/' . $id)->with('success', 'Review created successfully');
+		}
+		else {
+			return redirect('dvds/' . $id)
+				->withInput()
+				->withErrors($validation);
+		}
 	}
 
 }

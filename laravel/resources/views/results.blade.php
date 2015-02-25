@@ -24,7 +24,6 @@
               <th>Release Date</th>
               <th>Reviews</th>
 
-
           </tr>
           </thead>
           <tbody>
