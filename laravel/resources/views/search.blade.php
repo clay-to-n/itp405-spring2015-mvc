@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
 
-            <form method="post" class="dvd-search" action="{{ url('dvds') }}">
+            <form method="get" class="dvd-search" action="{{ url('dvds') }}">
                 <div class="input-group dvd-search">
 
                     <input type="hidden"  name="_token" value="{{ csrf_token() }}">

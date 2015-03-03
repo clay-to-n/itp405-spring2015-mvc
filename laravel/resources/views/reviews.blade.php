@@ -1,4 +1,3 @@
-<?php use Illuminate\Html\HtmlBuilder; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,6 +42,12 @@
         <div class="row">
             <form method="post" action="{{ url('dvds/' . $dvd->id) }}">
                 <div class="form-group col-md-6 col-md-offset-3">
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger" role="alert"> {{ $error }} </div>
+                    @endforeach
+                    @if (Session::has('success'))
+                        <div class="alert alert-success" role="alert"> {{ Session::get('success') }} </div>
+                    @endif
                     <h3>Submit a Review</h3>
 
                     <input type="hidden"  name="_token" value="{{ csrf_token() }}">
@@ -61,12 +66,6 @@
                             Submit
                         </button>
                     </div>
-                    @if (Session::has('success'))
-                        <p class="success-message"> {{ Session::get('success') }} </p>
-                    @endif
-                    @foreach ($errors->all() as $error)
-                        <p class="error-message"> {{ $error }} </p>
-                    @endforeach
                 </div>
             </form>
         </div>

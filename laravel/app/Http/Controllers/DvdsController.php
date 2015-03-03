@@ -55,6 +55,37 @@ class DvdsController extends Controller {
 	}
 
 	/**
+	 * Create the DVD based on create page input
+	 *
+	 * @return Redirect
+	 */
+	public function postDvd(Request $request)
+	{
+		$dvd = new Dvd();
+		$dvd->title = $request->input('title');
+		$dvd->genre_id = $request->input('genre_id');
+		$dvd->rating_id = $request->input('rating_id');
+		$dvd->label_id = $request->input('label_id');
+		$dvd->sound_id = $request->input('sound_id');
+		$dvd->format_id = $request->input('format_id');
+
+		if ($dvd->save()) {
+			Review::create([
+				'title' => $request->input('title'),
+				'rating' => $request->input('rating'),
+				'description' => $request->input('description')
+			]);
+			return redirect('dvds/create')->with('success', 'Your DVD has been created.');
+		}
+		else {
+			$validation = [];
+			return redirect('dvds/create')
+				->withInput()
+				->withErrors($validation);
+		}
+	}
+
+	/**
 	 * Show the results of a search to the user
 	 *
 	 * @return Response
@@ -91,6 +122,8 @@ class DvdsController extends Controller {
 
 	/**
 	 * Post a new review of a DVD
+	 *
+	 * @return Redirect
 	 */
 	public function postReview(Request $request, $id)
 	{

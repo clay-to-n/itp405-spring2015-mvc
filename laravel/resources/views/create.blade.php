@@ -18,7 +18,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger" role="alert"> {{ $error }} </div>
+            @endforeach
+            @if (Session::has('success'))
+                <div class="alert alert-success" role="alert"> {{ Session::get('success') }} </div>
+            @endif
             <form method="post" class="dvd-create" action="{{ url('dvds') }}">
                 <div class="input-group dvd-create">
 
@@ -28,40 +33,40 @@
 
                     <span>
                         <select name="genre_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="-1">
-                                All Genres
+                            <option value="">
+                                Genres
                             </option>
                             @foreach($genres as $genre)
                                 <option value="{{ $genre->id }}"> {{ $genre->genre_name }}</option>;
                             @endforeach
                         </select>
                         <select name="rating_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="-1">
-                                All Ratings
+                            <option value="">
+                                Ratings
                             </option>
                             @foreach($ratings as $rating)
                                 <option value="{{ $rating->id }}"> {{ $rating->rating_name }}</option>;
                             @endforeach
                         </select>
                         <select name="label_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="-1">
-                                All Labels
+                            <option value="">
+                                Labels
                             </option>
                             @foreach($labels as $label)
                                 <option value="{{ $label->id }}"> {{ $label->label_name }}</option>;
                             @endforeach
                         </select>
                         <select name="sound_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="-1">
-                                All Sound Formats
+                            <option value="">
+                                Sound Formats
                             </option>
                             @foreach($sounds as $sound)
                                 <option value="{{ $sound->id }}"> {{ $sound->sound_name }}</option>;
                             @endforeach
                         </select>
                         <select name="format_id" class="selectpicker" data-live-search="true" data-width="100%">
-                            <option value="-1">
-                                All Formats
+                            <option value="">
+                                Formats
                             </option>
                             @foreach($formats as $format)
                                 <option value="{{ $format->id }}"> {{ $format->format_name }}</option>;

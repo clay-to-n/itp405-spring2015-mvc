@@ -5,12 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class Dvd extends Model {
 
-    private $title;
-    private $rating;
-    private $format;
-    private $genre;
-    private $sound;
-    private $label;
+    //protected $fillable = array('title', 'rating_id', 'genre_id', 'format_id', 'sound_id', 'label_id');
 
     public static function search($search)
     {
@@ -66,6 +61,11 @@ class Dvd extends Model {
             ->where('dvds.id', $id);
         
         return $query->first();
+    }
+
+    public static function validate($dvd)
+    {
+
     }
 
     public static function getAllRatings()
