@@ -1,9 +1,16 @@
 <?php namespace App\Models;
 
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Dvd {
+class Dvd extends Model {
+
+    private $title;
+    private $rating;
+    private $format;
+    private $genre;
+    private $sound;
+    private $label;
 
     public static function search($search)
     {
@@ -69,5 +76,20 @@ class Dvd {
     public static function getAllGenres()
     {
         return DB::table('genres')->get();
+    }
+
+    public static function getAllLabels()
+    {
+        return DB::table('labels')->get();
+    }
+
+    public static function getAllSounds()
+    {
+        return DB::table('sounds')->get();
+    }
+
+    public static function getAllFormats()
+    {
+        return DB::table('formats')->get();
     }
 }

@@ -13,6 +13,8 @@
 
 Route::get('/', 'DvdsController@search');
 
+Route::get('/dvds/create', 'DvdsController@create');
+
 Route::get('/dvds/search', 'DvdsController@search');
 Route::post('/dvds', 'DvdsController@results');
 

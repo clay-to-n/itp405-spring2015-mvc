@@ -31,6 +31,28 @@ class DvdsController extends Controller {
 			'ratings' => $ratings
 		]);
 	}
+    
+    /**
+	 * Show the create page to the user
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		$ratings = Dvd::getAllRatings();
+		$genres = Dvd::getAllGenres();
+        $labels = Dvd::getAllLabels();
+        $sounds = Dvd::getAllSounds();
+        $formats = Dvd::getAllFormats();
+
+		return view('create', [
+			'genres' => $genres,
+			'ratings' => $ratings,
+            'labels' => $labels,
+            'sounds' => $sounds,
+            'formats' => $formats,
+		]);
+	}
 
 	/**
 	 * Show the results of a search to the user
