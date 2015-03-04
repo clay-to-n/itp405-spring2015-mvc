@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
-class Review {
+class Review extends Model {
 
     public static function validate($input)
     {
@@ -16,7 +17,7 @@ class Review {
         ]);
     }
 
-    public static function create($data)
+    public static function insert($data)
     {
         return DB::table('reviews')->insert($data);
     }
@@ -27,5 +28,10 @@ class Review {
             ->where('dvd_id', 'LIKE', $id);
 
         return $query->get();
+    }
+
+    public function dvd()
+    {
+        return $this->belongsTo('App\Models\Dvd');
     }
 }

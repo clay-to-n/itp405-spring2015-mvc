@@ -21,3 +21,6 @@ Route::get('/dvds', 'DvdsController@results');
 
 Route::get('/dvds/{id}', 'DvdsController@reviews');
 Route::post('/dvds/{id}', 'DvdsController@postReview');
+
+Route::get('/genres/{genreName}/dvds', 'DvdsController@genreResults');
+

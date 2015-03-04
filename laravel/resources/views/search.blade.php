@@ -17,8 +17,18 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-
+        <div class="genre-sidebar col-sm-3 col-sm-offset-1">
+            Search by Genre:
+            <br/>
+            <br/>
+            @foreach($genres as $genre)
+                <a href="{{ url('genres/' . $genre->genre_name . '/dvds') }}">{{ $genre->genre_name }}</a><br/>
+            @endforeach
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <br/>
+            <h1>DVD Search</h1>
+            <br/>
             <form method="get" class="dvd-search" action="{{ url('dvds') }}">
                 <div class="input-group dvd-search">
 

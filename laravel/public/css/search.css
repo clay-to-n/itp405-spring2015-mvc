@@ -13,6 +13,11 @@ body, html {
     height: 100%;
     vertical-align: middle;
 }
+
 .dvd-search {
     font-size: 1.5em;
+}
+
+.genre-sidebar {
+    text-align: right;
 }

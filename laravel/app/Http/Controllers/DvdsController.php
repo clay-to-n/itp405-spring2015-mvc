@@ -70,18 +70,12 @@ class DvdsController extends Controller {
 		$dvd->format_id = $request->input('format_id');
 
 		if ($dvd->save()) {
-			Review::create([
-				'title' => $request->input('title'),
-				'rating' => $request->input('rating'),
-				'description' => $request->input('description')
-			]);
+
 			return redirect('dvds/create')->with('success', 'Your DVD has been created.');
 		}
 		else {
-			$validation = [];
 			return redirect('dvds/create')
-				->withInput()
-				->withErrors($validation);
+				->withInput();
 		}
 	}
 
@@ -131,7 +125,7 @@ class DvdsController extends Controller {
 		$validation = Review::validate($request->all());
 
 		if ($validation->passes()) {
-			 Review::create([
+			 Review::insert([
 				'dvd_id' => $id,
 				'title' => $request->input('title'),
 				'rating' => $request->input('rating'),
@@ -144,6 +138,26 @@ class DvdsController extends Controller {
 				->withInput()
 				->withErrors($validation);
 		}
+	}
+
+	/**
+	 * Show all dvds in the specified genre
+	 *
+	 * @return Response
+	 */
+	public function genreResults($genreName)
+	{
+		$results = Dvd::with('label', 'rating', 'format', 'sound', 'genre')
+			->whereHas('genre', function($query) use ($genreName)
+			{
+				$query->where('genre_name', '=', $genreName);
+			})
+			->get();
+
+		return view('genre_results', [
+			'genre_name' => $genreName,
+			'results' => $results
+		]);
 	}
 
 }

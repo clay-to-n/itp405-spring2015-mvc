@@ -24,6 +24,8 @@
             @if (Session::has('success'))
                 <div class="alert alert-success" role="alert"> {{ Session::get('success') }} </div>
             @endif
+            <h1>Add a DVD</h1>
+            <br/>
             <form method="post" class="dvd-create" action="{{ url('dvds') }}">
                 <div class="input-group dvd-create">
 
