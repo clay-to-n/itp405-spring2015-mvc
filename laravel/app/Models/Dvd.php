@@ -95,7 +95,7 @@ class Dvd extends Model {
 
     public function review()
     {
-        return $this->belongsToMany('App\Models\Review');
+        return $this->hasMany('App\Models\Review');
     }
 
     public function rating()

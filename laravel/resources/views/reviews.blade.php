@@ -12,33 +12,65 @@
     </head>
     <body>
     <div class="container">
+        <hr/>
         <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <div class="row">
+                    <h1 class="pull-right">{{ $dvd->title }}</h1>
+                </div>
+                @if($tomatoes_data)
+                    <div class="row">
+                        <img src="{{$tomatoes_data['poster']}}" class="pull-right">
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-7">
 
-            <h1>{{ $dvd->title }}</h1>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                      <th>Genre</th>
-                      <th>Rating</th>
-                      <th>Label</th>
-                      <th>Sound</th>
-                      <th>Format</th>
-                      <th>Release Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                      <td>{{ $dvd->genre_name }}</td>
-                      <td>{{ $dvd->rating_name }}</td>
-                      <td>{{ $dvd->label_name }}</td>
-                      <td>{{ $dvd->sound_name }}</td>
-                      <td>{{ $dvd->format_name }}</td>
-                      <td>{{ date("M d, Y", strtotime($dvd->release_date)) }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th>Genre</th>
+                          <th>Rating</th>
+                          <th>Label</th>
+                          <th>Sound</th>
+                          <th>Format</th>
+                          <th>Release Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td>{{ $dvd->genre_name }}</td>
+                          <td>{{ $dvd->rating_name }}</td>
+                          <td>{{ $dvd->label_name }}</td>
+                          <td>{{ $dvd->sound_name }}</td>
+                          <td>{{ $dvd->format_name }}</td>
+                          <td>{{ date("M d, Y", strtotime($dvd->release_date)) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @if($tomatoes_data)
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Critic Score</th>
+                            <th>Audience Score</th>
+                            <th>Runtime</th>
+                            <th>Abridged Cast</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ $tomatoes_data['critic_score'] }}</td>
+                            <td>{{ $tomatoes_data['audience_score'] }}</td>
+                            <td>{{ $tomatoes_data['runtime'] }} m</td>
+                            <td>{{ $tomatoes_data['cast'] }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @endif
+            </div>
         </div>
+        <hr/>
         <div class="row">
             <form method="post" action="{{ url('dvds/' . $dvd->id) }}">
                 <div class="form-group col-md-6 col-md-offset-3">

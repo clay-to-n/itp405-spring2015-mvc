@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Services\RottenTomatoes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Dvd;
@@ -107,10 +108,12 @@ class DvdsController extends Controller {
 	{
 		$dvd = Dvd::getById($id);
 		$reviews = Review::getByDvdId($id);
+		$tomatoesData = RottenTomatoes::search($dvd->title);
 
 		return view('reviews', [
 			'dvd' => $dvd,
-			'reviews' => $reviews
+			'reviews' => $reviews,
+			'tomatoes_data' => $tomatoesData
 		]);
 	}
 
